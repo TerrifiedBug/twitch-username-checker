@@ -21,7 +21,7 @@ Check the availability of Twitch usernames on a schedule — complete with optio
 
 ```bash
 git clone https://github.com/TerrifiedBug/twitch-username-checker.git
-cd twitch-username-availability
+cd twitch-username-checker
 ```
 
 ---
