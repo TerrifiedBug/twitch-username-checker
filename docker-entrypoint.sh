@@ -27,4 +27,5 @@ crontab /etc/cron.d/twitch-cron
 # Start cron
 echo "[*] Starting cron with schedule: $CRON_SCHEDULE"
 cron
+echo "[*] Starting new container run at $(date)" >> /var/log/cron.log
 tail -f /var/log/cron.log
