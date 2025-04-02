@@ -93,7 +93,7 @@ Defines the HTML selectors used to fill/check the site. Already configured for [
     "result_selector": "#result"
   },
   "screenshots": {
-    "enabled": true,
+    "enabled": false,
     "path_format": "screenshots/debug_{username}.png"
   }
 }
