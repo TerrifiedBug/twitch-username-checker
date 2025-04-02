@@ -46,7 +46,7 @@ CALLMEBOT_PHONE=+441234567890
 CALLMEBOT_APIKEY=abcdef123456
 
 # Screenshots
-SCREENSHOTS_ENABLED=true
+SCREENSHOTS_ENABLED=false
 ```
 
 ---
@@ -128,6 +128,19 @@ python3 twitch_username_check.py
 | Every hour          | `0 * * * *`                |
 
 Use [crontab.guru](https://crontab.guru) for easy syntax checks.
+
+---
+
+## ⚠️ Disclaimer
+
+This project uses a headless browser to interact with [Streampog](https://streampog.com/twitch-username-checker) to check Twitch username availability.
+
+> **Please use this tool responsibly.**
+> Do not run it more frequently than necessary, and avoid sending high volumes of automated requests that could overload or disrupt Streampog’s services.
+
+We are not affiliated with Streampog or Twitch. This tool is intended for personal or educational use only.
+
+If you are the owner of Streampog and have concerns about this tool, please [open an issue](https://github.com/TerrifiedBug/twitch-username-checker/issues) or contact the repository maintainer directly at admin@terrifiedbug.com
 
 ---
 
