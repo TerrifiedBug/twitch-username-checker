@@ -105,7 +105,7 @@ Defines the HTML selectors used to fill/check the site. Already configured for [
 ## 🧪 Test Manually Inside Container
 
 ```bash
-docker exec -it twitch-checker bash
+docker exec -it twitch-username-checker bash
 python3 twitch_username_check.py
 ```
 
