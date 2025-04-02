@@ -123,9 +123,8 @@ python3 twitch_username_check.py
 
 | Schedule            | CRON_SCHEDULE              |
 |---------------------|----------------------------|
-| Every 5 minutes     | `*/5 * * * *`              |
+| Every day at midnight     | `0 0 * * *`              |
 | Twice a day (8 AM + 8 PM) | `0 8,20 * * *`        |
-| Every hour          | `0 * * * *`                |
 
 Use [crontab.guru](https://crontab.guru) for easy syntax checks.
 
