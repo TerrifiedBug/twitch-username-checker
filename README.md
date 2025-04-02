@@ -109,7 +109,8 @@ docker compose up -d
 
 ### 📄 `config.json`
 
-Configure how the script interacts with the Streampog form:
+
+Defines the HTML selectors used to fill/check the site. Already configured for [streampog.com](https://streampog.com):
 
 ```json
 {
@@ -152,7 +153,6 @@ python3 twitch_username_check.py
 |---------------------------|-----------------------|
 | Once a day at midnight    | `0 0 * * *`           |
 | Twice a day (8 AM, 8 PM)  | `0 8,20 * * *`        |
-| Every hour                | `0 * * * *`           |
 
 Use [crontab.guru](https://crontab.guru) to generate your own.
 
