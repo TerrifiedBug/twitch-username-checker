@@ -20,8 +20,8 @@ Check the availability of Twitch usernames on a schedule — complete with optio
 ### 🐳 1. Clone the Repository
 
 ```bash
-git clone https://github.com/<your-username>/homelab-scripts.git
-cd homelab-scripts/twitch-username-availability
+git clone https://github.com/TerrifiedBug/twitch-username-checker.git
+cd witch-username-availability
 ```
 
 ---
