@@ -131,11 +131,15 @@ Use [crontab.guru](https://crontab.guru) for easy syntax checks.
 ---
 
 ## ⚠️ Disclaimer
-
 This project uses a headless browser to interact with [Streampog](https://streampog.com/twitch-username-checker) to check Twitch username availability.
 
 > **Please use this tool responsibly.**
-> Do not run it more frequently than necessary, and avoid sending high volumes of automated requests that could overload or disrupt Streampog’s services.
+> This tool relies on Streampog's public Twitch Username Checker. It is not affiliated with or endorsed by Streampog.
+
+> Please use this tool respectfully. It is designed to mimic normal user interaction and should be ran at most twice per day.
+
+> Do not configure cron run it more frequently than necessary, and avoid sending high volumes of automated requests that could disrupt or overload Streampog’s services.
+
 
 We are not affiliated with Streampog or Twitch. This tool is intended for personal or educational use only.
 
