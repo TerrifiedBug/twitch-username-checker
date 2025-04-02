@@ -1,6 +1,8 @@
 # 🐳 Twitch Username Availability Checker (Dockerized)
 
-Check the availability of Twitch usernames on a schedule — complete with optional notifications via **Discord**, **CallMeBot (WhatsApp)**, and full Docker support.
+[![Docker Pulls](https://img.shields.io/docker/pulls/terrifiedbug/twitch-username-checker)](https://hub.docker.com/r/terrifiedbug/twitch-username-checker)
+
+Check the availability of Twitch usernames...
 
 ---
 
