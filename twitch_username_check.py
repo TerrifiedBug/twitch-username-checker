@@ -8,8 +8,10 @@ from playwright.sync_api import sync_playwright
 
 
 def load_config():
-    """Load config json."""
-    with open("config.json", "r", encoding="utf-8") as f:
+    """Load config json relative to the script location."""
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    config_path = os.path.join(base_dir, "config.json")
+    with open(config_path, "r", encoding="utf-8") as f:
         return json.load(f)
 
 
