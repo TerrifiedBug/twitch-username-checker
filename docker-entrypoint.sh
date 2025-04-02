@@ -17,7 +17,7 @@ fi
 printenv | grep -v "no_proxy" >> /etc/environment
 
 # Write out the cron job
-echo "$CRON_SCHEDULE cd /app && /usr/local/bin/python twitch_username_check.py >> /var/log/cron.log 2>&1" > /etc/cron.d/twitch-cron
+echo "$CRON_SCHEDULE /usr/local/bin/python /app/twitch_username_check.py >> /var/log/cron.log 2>&1" > /etc/cron.d/twitch-cron
 chmod 0644 /etc/cron.d/twitch-cron
 touch /var/log/cron.log
 
