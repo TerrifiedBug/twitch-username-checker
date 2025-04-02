@@ -1,6 +1,6 @@
 # 🐳 Twitch Username Availability Checker (Dockerized)
 
-Check the availability of Twitch usernames on a schedule — complete with optional notifications via **Discord** and **CallMeBot (WhatsApp)**, screenshots, and full Docker support.
+Check the availability of Twitch usernames on a schedule — complete with optional notifications via **Discord** and **CallMeBot (WhatsApp)**, and full Docker support.
 
 ---
 
@@ -9,7 +9,7 @@ Check the availability of Twitch usernames on a schedule — complete with optio
 - ✅ Headless browser check via Playwright
 - ✅ Configurable username list
 - ✅ Discord + WhatsApp alerts
-- ✅ Optional screenshot saving
+- ✅ Optional screenshot saving for debugging purposes
 - ✅ Dockerized with cron scheduling
 - ✅ Environment-driven configuration
 
