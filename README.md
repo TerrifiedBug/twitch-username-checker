@@ -21,7 +21,7 @@ Check the availability of Twitch usernames on a schedule — complete with optio
 
 ```bash
 git clone https://github.com/TerrifiedBug/twitch-username-checker.git
-cd witch-username-availability
+cd twitch-username-availability
 ```
 
 ---
@@ -57,7 +57,8 @@ SCREENSHOTS_ENABLED=false
 .
 ├── docker-compose.yml
 ├── Dockerfile
-├── .env.template
+├── .env.template             # .env template to create your .env from
+├── .env                      # Your populated .env file
 ├── config.json               # Field selectors & UI config
 ├── twitch_username_check.py  # Main script
 ├── docker-entrypoint.sh      # Sets up cron

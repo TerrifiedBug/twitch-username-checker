@@ -2,11 +2,15 @@ version: "3.9"
 
 services:
   twitch-checker:
-    image: twitch-username-availability:latest
-    container_name: twitch-username-availability
+    container_name: twitch-username-checker
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: twitch-username-checker:latest
     restart: unless-stopped
     env_file:
-      - stack.env
+      - .env
+    working_dir: /app
     volumes:
       - ./cron-logs:/var/log
       - ./screenshots:/app/screenshots

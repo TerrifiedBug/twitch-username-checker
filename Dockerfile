@@ -5,18 +5,18 @@ WORKDIR /app
 # Install curl + cron
 RUN apt-get update && apt-get install -y curl cron && apt-get clean
 
-# Copy requirements and install packages
+# Copy and install Python requirements, then clean up
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt && \
+    rm requirements.txt && \
     playwright install-deps && \
     playwright install
 
-
-# Make entrypoint script executable
+# Copy entrypoint and make it executable
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-# Copy app code
+# Copy the rest of the app
 COPY . .
 
 # Declare env vars (documented defaults)
