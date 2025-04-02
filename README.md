@@ -63,7 +63,6 @@ SCREENSHOTS_ENABLED=false
 ├── twitch_username_check.py  # Main script
 ├── docker-entrypoint.sh      # Sets up cron
 ├── requirements.txt          # Requirements
-├── screenshots/              # Screenshots saved here (optional)
 ```
 
 ---
