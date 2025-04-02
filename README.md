@@ -1,6 +1,6 @@
 # 🐳 Twitch Username Availability Checker (Dockerized)
 
-Check the availability of Twitch usernames on a schedule — complete with optional notifications via **Discord** and **CallMeBot (WhatsApp)**, and full Docker support.
+Check the availability of Twitch usernames on a schedule — complete with optional notifications via **Discord**, **CallMeBot (WhatsApp)**, and full Docker support.
 
 ---
 
@@ -17,24 +17,15 @@ Check the availability of Twitch usernames on a schedule — complete with optio
 
 ## 🚀 Getting Started
 
-### 🐳 1. Clone the Repository
+### 🐙 Option 1: Use Prebuilt Image from Docker Hub
 
-```bash
-git clone https://github.com/TerrifiedBug/twitch-username-checker.git
-cd twitch-username-checker
-```
-
----
-
-### ⚙️ 2. Configure `.env`
-
-Create a `.env` file:
+#### 1. Create a `.env` file:
 
 ```env
 # Comma-separated list of usernames to check
-USERNAMES=
+USERNAMES=yourname1,yourname2
 
-# Cron schedule (twice daily example)
+# Cron schedule (e.g. 8 AM and 8 PM daily)
 CRON_SCHEDULE=0 8,20 * * *
 
 # Notifications
@@ -49,40 +40,76 @@ CALLMEBOT_APIKEY=abcdef123456
 SCREENSHOTS_ENABLED=false
 ```
 
+#### 2. Create `docker-compose.yml`:
+
+```yaml
+version: "3.9"
+
+services:
+  twitch-checker:
+    container_name: twitch-username-checker
+    image: terrifiedbug/twitch-username-checker:latest
+    restart: unless-stopped
+    env_file:
+      - .env
+    working_dir: /app
+    volumes:
+      - ./cron-logs:/var/log
+      - ./screenshots:/app/screenshots
+```
+
+#### 3. Run it:
+
+```bash
+docker compose pull
+docker compose up -d
+```
+
 ---
 
-### 📁 3. Files You Should Have
+### 🛠️ Option 2: Build Image Locally from Dockerfile
 
-```
-.
-├── docker-compose.yml
-├── Dockerfile
-├── .env.template             # .env template to create your .env from
-├── .env                      # Your populated .env file
-├── config.json               # Field selectors & UI config
-├── twitch_username_check.py  # Main script
-├── docker-entrypoint.sh      # Sets up cron
-├── requirements.txt          # Requirements
+#### 1. Clone the Repository:
+
+```bash
+git clone https://github.com/TerrifiedBug/twitch-username-checker.git
+cd twitch-username-checker
 ```
 
----
+#### 2. Configure `.env` (as above)
 
-### 🐳 4. Build and Run
+#### 3. Build & Run Locally:
 
 ```bash
 docker compose build
 docker compose up -d
 ```
 
-📝 Output is logged to `cron-logs/cron.log`
+---
+
+## 📁 Files You Should Have
+
+```
+.
+├── .env                      # Your environment variables
+├── .env.template             # Sample template
+├── config.json               # Field selectors & UI config
+├── twitch_username_check.py  # Main script
+├── docker-compose.yml        # Docker Compose setup
+├── Dockerfile                # Docker image builder
+├── docker-entrypoint.sh      # Entrypoint for cron setup
+├── requirements.txt          # Python deps
+├── cron-logs/                # Log output from cron
+├── screenshots/              # Screenshots saved here
+```
 
 ---
 
-## 🔧 Configuration Files
+## 🔧 Configuration
 
 ### 📄 `config.json`
 
-Defines the HTML selectors used to fill/check the site. Already configured for [streampog.com](https://streampog.com):
+Configure how the script interacts with the Streampog form:
 
 ```json
 {
@@ -101,7 +128,16 @@ Defines the HTML selectors used to fill/check the site. Already configured for [
 
 ---
 
-## 🧪 Test Manually Inside Container
+## 📬 Notifications
+
+| Type      | Environment Variables Required                      |
+|-----------|-----------------------------------------------------|
+| Discord   | `DISCORD_ENABLED=true`, `DISCORD_WEBHOOK=...`       |
+| CallMeBot | `CALLMEBOT_ENABLED=true`, `CALLMEBOT_PHONE=...`, `CALLMEBOT_APIKEY=...` |
+
+---
+
+## 🧪 Run It Manually (for testing)
 
 ```bash
 docker exec -it twitch-username-checker bash
@@ -110,23 +146,15 @@ python3 twitch_username_check.py
 
 ---
 
-## 📬 Notifications
-
-| Type        | Config                                  |
-|-------------|------------------------------------------|
-| Discord     | Enable via `.env` and set webhook URL    |
-| CallMeBot   | Enable via `.env`, phone number + API key|
-
----
-
 ## 📅 Cron Schedule Examples
 
-| Schedule            | CRON_SCHEDULE              |
-|---------------------|----------------------------|
-| Every day at midnight     | `0 0 * * *`              |
-| Twice a day (8 AM + 8 PM) | `0 8,20 * * *`        |
+| Goal                      | Example Schedule      |
+|---------------------------|-----------------------|
+| Once a day at midnight    | `0 0 * * *`           |
+| Twice a day (8 AM, 8 PM)  | `0 8,20 * * *`        |
+| Every hour                | `0 * * * *`           |
 
-Use [crontab.guru](https://crontab.guru) for easy syntax checks.
+Use [crontab.guru](https://crontab.guru) to generate your own.
 
 ---
 
@@ -141,16 +169,15 @@ This project uses a headless browser to interact with [Streampog](https://stream
 
 > Do not configure cron run more frequently than necessary, and avoid sending high volumes of automated requests that could disrupt or overload Streampog’s services.
 
-
 We are not affiliated with Streampog or Twitch. This tool is intended for personal or educational use only.
 
-If you are the owner of Streampog and have concerns about this tool, please [open an issue](https://github.com/TerrifiedBug/twitch-username-checker/issues) or contact the repository maintainer directly at admin@terrifiedbug.com
+If you are the owner of Streampog and have any concerns, feel free to [open an issue](https://github.com/TerrifiedBug/twitch-username-checker/issues) or contact the repository maintainer at `admin@terrifiedbug.com`.
 
 ---
 
 ## 🙌 Credits
 
-Built using:
+Built with ❤️ using:
 
 - [Playwright](https://playwright.dev/)
 - [Docker](https://docker.com/)
