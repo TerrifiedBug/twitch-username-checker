@@ -61,7 +61,7 @@ SCREENSHOTS_ENABLED=true
 ├── config.json               # Field selectors & UI config
 ├── twitch_username_check.py  # Main script
 ├── docker-entrypoint.sh      # Sets up cron
-├── requirements.txt      # Requirements
+├── requirements.txt          # Requirements
 ├── screenshots/              # Screenshots saved here (optional)
 ```
 
