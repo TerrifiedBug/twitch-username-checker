@@ -3,10 +3,7 @@ version: "3.9"
 services:
   twitch-checker:
     container_name: twitch-username-checker
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: twitch-username-checker:latest
+    image: terrifiedbug/twitch-username-checker:latest
     restart: unless-stopped
     env_file:
       - .env
