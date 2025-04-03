@@ -185,9 +185,6 @@ To use Gmail for email notifications:
 # Using container name:
 docker exec -it twitch-username-checker bash
 python -m username_checker.cli
-
-# Or if using deprecated approach:
-python twitch_username_check.py
 ```
 
 ---
@@ -204,10 +201,10 @@ Use [crontab.guru](https://crontab.guru) to generate your own.
 ---
 
 ## ⚠️ Disclaimer
-This project uses a headless browser to interact with external sites like [Streampog](https://streampog.com/twitch-username-checker) to check Twitch username availability.
+This project uses a headless browser to interact with external sites to check Twitch username availability.
 
 > **Please use this tool responsibly.**
-> This tool relies on public username checking services. It is not affiliated with or endorsed by Streampog or Twitch.
+> This tool relies on publicically available services. It is not affiliated with or endorsed by Streampog or Twitch.
 
 > **Please use this tool respectfully.**
 > It is designed to mimic normal user interaction and should be run at most twice per day.
