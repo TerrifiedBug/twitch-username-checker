@@ -1,4 +1,4 @@
-# 🐳 Multi-Site Twitch Username Availability Checker (Dockerized)
+# 🐳 Twitch Username Availability Checker (Dockerized)
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/terrifiedbug/twitch-username-checker)](https://hub.docker.com/r/terrifiedbug/twitch-username-checker)
 
