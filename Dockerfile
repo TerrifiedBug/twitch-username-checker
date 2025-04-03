@@ -8,7 +8,6 @@ RUN apt-get update && apt-get install -y curl cron && apt-get clean
 # Copy and install Python requirements, then clean up
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt && \
-    rm requirements.txt && \
     playwright install-deps && \
     playwright install
 
@@ -16,16 +15,30 @@ RUN pip install --no-cache-dir -r requirements.txt && \
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-# Copy the rest of the app
-COPY . .
+# Copy package files
+COPY username_checker/ /app/username_checker/
+COPY setup.py .
+
+# Install the package in development mode
+RUN pip install -e .
+
+# Copy the config file
+COPY username_checker/config.json .
 
 # Declare env vars (documented defaults)
 ENV USERNAMES=""
+ENV WEBSITES="twitch,streampog"
 ENV DISCORD_ENABLED=false
 ENV DISCORD_WEBHOOK=""
 ENV CALLMEBOT_ENABLED=false
 ENV CALLMEBOT_PHONE=""
 ENV CALLMEBOT_APIKEY=""
+ENV EMAIL_ENABLED=false
+ENV EMAIL_SMTP_SERVER="smtp.gmail.com"
+ENV EMAIL_SMTP_PORT=587
+ENV EMAIL_SENDER=""
+ENV EMAIL_PASSWORD=""
+ENV EMAIL_RECIPIENT=""
 ENV CRON_SCHEDULE="0 * * * *"
 ENV SCREENSHOTS_ENABLED=false
 
