@@ -1,12 +1,16 @@
 {
-    "site": {
-        "url": "https://streampog.com/twitch-username-checker",
-        "username_field": "input[name=\"username\"]",
-        "submit_button": "button[type=\"submit\"]",
-        "result_selector": "#result"
+    "twitch": {
+        "type": "direct",
+        "url": "https://www.twitch.tv/",
+        "error_selector": "[data-a-target=\"core-error-message\"]"
     },
-    "screenshots": {
-        "enabled": false,
-        "path_format": "screenshots/debug_{username}.png"
+    "streampog": {
+        "type": "form",
+        "url": "https://streampog.com/twitch-username-checker",
+        "username_field": "input[name='username']",
+        "submit_button": "button[type='submit']",
+        "result_selector": "#result",
+        "success_class": "alert-success",
+        "success_text": "Username is available!"
     }
 }
