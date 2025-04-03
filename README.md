@@ -2,7 +2,7 @@
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/terrifiedbug/twitch-username-checker)](https://hub.docker.com/r/terrifiedbug/twitch-username-checker)
 
-Check the availability of Twitch usernames across multiple sites on a schedule — complete with optional notifications via **Discord**, **CallMeBot (WhatsApp)**, and full Docker support.
+Check the availability of Twitch usernames across multiple sites on a schedule — complete with optional notifications via **Discord**, **CallMeBot (WhatsApp)**, **Email (Gmail/SMTP)**, and full Docker support.
 
 ---
 
@@ -11,7 +11,7 @@ Check the availability of Twitch usernames across multiple sites on a schedule �
 - ✅ Headless browser check via Playwright
 - ✅ Multi-site checking with different methods (direct URL and form-based)
 - ✅ Configurable username list
-- ✅ Discord + WhatsApp alerts
+- ✅ Discord + WhatsApp + Email alerts
 - ✅ Optional screenshot saving for debugging purposes
 - ✅ Dockerized with cron scheduling
 - ✅ Environment-driven configuration
@@ -42,6 +42,13 @@ DISCORD_WEBHOOK=https://discord.com/api/webhooks/...
 CALLMEBOT_ENABLED=true
 CALLMEBOT_PHONE=+441234567890
 CALLMEBOT_APIKEY=abcdef123456
+
+EMAIL_ENABLED=true
+EMAIL_SMTP_SERVER=smtp.gmail.com
+EMAIL_SMTP_PORT=587
+EMAIL_SENDER=your-email@gmail.com
+EMAIL_PASSWORD=your-app-password
+EMAIL_RECIPIENT=recipient@example.com
 
 # Screenshots
 SCREENSHOTS_ENABLED=false
@@ -158,6 +165,17 @@ The tool supports two types of availability checks:
 |-----------|-----------------------------------------------------|
 | Discord   | `DISCORD_ENABLED=true`, `DISCORD_WEBHOOK=...`       |
 | CallMeBot | `CALLMEBOT_ENABLED=true`, `CALLMEBOT_PHONE=...`, `CALLMEBOT_APIKEY=...` |
+| Email     | `EMAIL_ENABLED=true`, `EMAIL_SMTP_SERVER=...`, `EMAIL_SMTP_PORT=...`, `EMAIL_SENDER=...`, `EMAIL_PASSWORD=...`, `EMAIL_RECIPIENT=...` |
+
+### Using Gmail for Email Notifications
+
+To use Gmail for email notifications:
+
+1. Set `EMAIL_SMTP_SERVER=smtp.gmail.com` and `EMAIL_SMTP_PORT=587`.
+2. For `EMAIL_PASSWORD`, you need to use an App Password instead of your regular Gmail password:
+   - Go to your Google Account > Security > 2-Step Verification > App passwords
+   - Create a new app password for "Mail" and "Other (Custom name)"
+   - Use the generated 16-character password as `EMAIL_PASSWORD`
 
 ---
 
