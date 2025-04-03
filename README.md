@@ -1,20 +1,21 @@
-# 🐳 Twitch Username Availability Checker (Dockerized)
+# 🐳 Multi-Site Twitch Username Availability Checker (Dockerized)
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/terrifiedbug/twitch-username-checker)](https://hub.docker.com/r/terrifiedbug/twitch-username-checker)
 
-Check the availability of Twitch usernames on a schedule — complete with optional notifications via **Discord**, **CallMeBot (WhatsApp)**, and full Docker support.
-
+Check the availability of Twitch usernames across multiple sites on a schedule — complete with optional notifications via **Discord**, **CallMeBot (WhatsApp)**, and full Docker support.
 
 ---
 
 ## 🧰 Features
 
 - ✅ Headless browser check via Playwright
+- ✅ Multi-site checking with different methods (direct URL and form-based)
 - ✅ Configurable username list
 - ✅ Discord + WhatsApp alerts
 - ✅ Optional screenshot saving for debugging purposes
 - ✅ Dockerized with cron scheduling
 - ✅ Environment-driven configuration
+- ✅ Modular code structure for easy extension
 
 ---
 
@@ -27,6 +28,9 @@ Check the availability of Twitch usernames on a schedule — complete with optio
 ```env
 # Comma-separated list of usernames to check
 USERNAMES=yourname1,yourname2
+
+# Comma-separated list of sites to check (must match config.json keys)
+WEBSITES=twitch,streampog
 
 # Cron schedule (e.g. 8 AM and 8 PM daily)
 CRON_SCHEDULE=0 8,20 * * *
@@ -90,20 +94,26 @@ docker compose up -d
 
 ---
 
-## 📁 Files You Should Have
+## 📁 Project Structure
 
 ```
 .
-├── .env                      # Your environment variables
-├── .env.template             # Sample template
-├── config.json               # Field selectors & UI config
-├── twitch_username_check.py  # Main script
-├── docker-compose.yml        # Docker Compose setup
-├── Dockerfile                # Docker image builder
-├── docker-entrypoint.sh      # Entrypoint for cron setup
-├── requirements.txt          # Python deps
-├── cron-logs/                # Log output from cron
-├── screenshots/              # Screenshots saved here
+├── .env                       # Your environment variables
+├── .env.template              # Sample template
+├── config.json                # Field selectors & UI config
+├── setup.py                   # Python package configuration
+├── docker-compose.yml         # Docker Compose setup
+├── Dockerfile                 # Docker image builder
+├── docker-entrypoint.sh       # Entrypoint for cron setup
+├── requirements.txt           # Python dependencies
+├── username_checker/          # Python package
+│   ├── __init__.py            # Package initialization
+│   ├── cli.py                 # CLI entry point
+│   ├── config/                # Configuration handling
+│   ├── services/              # Core services
+│   └── utils/                 # Utilities
+├── cron-logs/                 # Log output from cron
+└── screenshots/               # Screenshots saved here
 ```
 
 ---
@@ -112,23 +122,33 @@ docker compose up -d
 
 ### 📄 `config.json`
 
-
-Defines the HTML selectors used to fill/check the site. Already configured for [streampog.com](https://streampog.com):
+Defines configuration for each site to check. Currently configured for direct Twitch checking and [streampog.com](https://streampog.com):
 
 ```json
 {
-  "site": {
-    "url": "https://streampog.com/twitch-username-checker",
-    "username_field": "input[name=\"username\"]",
-    "submit_button": "button[type=\"submit\"]",
-    "result_selector": "#result"
-  },
-  "screenshots": {
-    "enabled": false,
-    "path_format": "screenshots/debug_{username}.png"
-  }
+    "twitch": {
+        "type": "direct",
+        "url": "https://www.twitch.tv/",
+        "error_selector": "[data-a-target=\"core-error-message\"]"
+    },
+    "streampog": {
+        "type": "form",
+        "url": "https://streampog.com/twitch-username-checker",
+        "username_field": "input[name='username']",
+        "submit_button": "button[type='submit']",
+        "result_selector": "#result",
+        "success_class": "alert-success",
+        "success_text": "Username is available!"
+    }
 }
 ```
+
+### 📊 Check Types
+
+The tool supports two types of availability checks:
+
+1. **Direct URL** (`type: "direct"`): Navigates to URL + username and checks for an error element
+2. **Form-based** (`type: "form"`): Submits username to a form and checks the result
 
 ---
 
@@ -144,8 +164,12 @@ Defines the HTML selectors used to fill/check the site. Already configured for [
 ## 🧪 Run It Manually (for testing)
 
 ```bash
+# Using container name:
 docker exec -it twitch-username-checker bash
-python3 twitch_username_check.py
+python -m username_checker.cli
+
+# Or if using deprecated approach:
+python twitch_username_check.py
 ```
 
 ---
@@ -162,19 +186,19 @@ Use [crontab.guru](https://crontab.guru) to generate your own.
 ---
 
 ## ⚠️ Disclaimer
-This project uses a headless browser to interact with [Streampog](https://streampog.com/twitch-username-checker) to check Twitch username availability.
+This project uses a headless browser to interact with external sites like [Streampog](https://streampog.com/twitch-username-checker) to check Twitch username availability.
 
 > **Please use this tool responsibly.**
-> This tool relies on Streampog's public Twitch Username Checker. It is not affiliated with or endorsed by Streampog.
+> This tool relies on public username checking services. It is not affiliated with or endorsed by Streampog or Twitch.
 
 > **Please use this tool respectfully.**
-> It is designed to mimic normal user interaction and should be ran at most twice per day.
+> It is designed to mimic normal user interaction and should be run at most twice per day.
 
-> Do not configure cron run more frequently than necessary, and avoid sending high volumes of automated requests that could disrupt or overload Streampog’s services.
+> Do not configure cron to run more frequently than necessary, and avoid sending high volumes of automated requests that could disrupt or overload services.
 
-We are not affiliated with Streampog or Twitch. This tool is intended for personal or educational use only.
+This tool is intended for personal or educational use only.
 
-If you are the owner of Streampog and have any concerns, feel free to [open an issue](https://github.com/TerrifiedBug/twitch-username-checker/issues) or contact the repository maintainer at `admin@terrifiedbug.com`.
+If you are the owner of any services used by this tool and have concerns, feel free to [open an issue](https://github.com/TerrifiedBug/twitch-username-checker/issues) or contact the repository maintainer at `admin@terrifiedbug.com`.
 
 ---
 
