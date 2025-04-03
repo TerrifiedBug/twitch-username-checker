@@ -1,5 +1,7 @@
 """Username availability checking service."""
 
+import os
+from datetime import datetime
 from typing import Dict, Optional, Tuple
 
 from playwright.sync_api import Error as PlaywrightError
@@ -47,12 +49,24 @@ def check_username_availability(
 
             # Handle screenshots if enabled
             screenshot_enabled = get_screenshot_config(screenshot_conf)
-            if screenshot_enabled and "path_format" in screenshot_conf:
-                screenshot_path = screenshot_conf["path_format"].format(
-                    site=site_name, username=username
+            if screenshot_enabled:
+                # Ensure screenshots directory exists
+                os.makedirs("/app/screenshots", exist_ok=True)
+
+                # Generate a timestamp
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+                # Determine screenshot path
+                path_format = screenshot_conf.get(
+                    "path_format", "/app/screenshots/{site}_{username}_{timestamp}.png"
                 )
+                screenshot_path = path_format.format(
+                    site=site_name, username=username, timestamp=timestamp
+                )
+
+                # Take the screenshot
                 page.screenshot(path=screenshot_path, full_page=True)
-                print(f"[*] Screenshot saved: {screenshot_path}")
+                print(f"[📸] Screenshot saved: {screenshot_path}")
 
             return result_text, is_available
 

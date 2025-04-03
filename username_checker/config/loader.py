@@ -9,7 +9,17 @@ def load_config(config_path: str = "/app/config.json") -> Dict:
     """Load config json relative to the script location."""
     try:
         with open(config_path, "r", encoding="utf-8") as f:
-            return json.load(f)
+            config = json.load(f)
+
+            # Add screenshot configuration if not present
+            if "screenshots" not in config:
+                config["screenshots"] = {
+                    "enabled": os.getenv("SCREENSHOTS_ENABLED", "false").lower()
+                    == "true",
+                    "path_format": "/app/screenshots/{site}_{username}_{timestamp}.png",
+                }
+
+            return config
     except (FileNotFoundError, json.JSONDecodeError) as error:
         print(f"[!] Error loading config: {error}")
         return {}
