@@ -224,3 +224,4 @@ Built with ❤️ using:
 - [Playwright](https://playwright.dev/)
 - [Docker](https://docker.com/)
 - [Streampog](https://streampog.com/)
+- [Twitch](https://www.twitch.tv/)
